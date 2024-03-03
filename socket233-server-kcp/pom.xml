@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.neko233</groupId>
+        <artifactId>socket233</artifactId>
+        <version>0.0.1</version>
+    </parent>
+
+    <artifactId>socket233-server-kcp</artifactId>
+    <version>${project.parent.version}</version>
+    <name>socket233-kcp</name>
+    <description>socket233-kcp</description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.neko233</groupId>
+            <artifactId>socket233-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jpower.kcp</groupId>
+            <artifactId>kcp-netty</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+
+
+    </dependencies>
+
+    <build>
+    </build>
+
+</project>
