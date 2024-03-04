@@ -1,4 +1,4 @@
-package com.neko233.socket233.core.engine.request.dto;
+package com.neko233.socket233.core.request.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

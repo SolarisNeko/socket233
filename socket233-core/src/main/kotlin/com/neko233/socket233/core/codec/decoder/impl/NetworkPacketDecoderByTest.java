@@ -1,7 +1,7 @@
 package com.neko233.socket233.core.codec.decoder.impl;
 
 import com.neko233.socket233.core.codec.decoder.NetworkPacketDecoder;
-import com.neko233.socket233.core.engine.request.dto.RequestMessage;
+import com.neko233.socket233.core.request.dto.RequestMessage;
 import com.neko233.socket233.core.utils.MapUtils;
 
 import java.nio.charset.StandardCharsets;

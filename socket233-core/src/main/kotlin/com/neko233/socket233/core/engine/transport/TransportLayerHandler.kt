@@ -7,7 +7,7 @@ import com.neko233.socket233.core.codec.encoder.EncoderFactory
 import com.neko233.socket233.core.codec.encoder.NetworkPacketEncoder
 import com.neko233.socket233.core.engine.NetworkEngineContext
 import com.neko233.socket233.core.engine.common.host.RemoteHostInfo
-import com.neko233.socket233.core.engine.request.PacketRequestHandlerApi
+import com.neko233.socket233.core.request.PacketRequestHandlerApi
 import com.neko233.socket233.core.session.SessionManager
 import com.neko233.socket233.core.utils.JsonUtils
 import lombok.extern.slf4j.Slf4j
@@ -38,6 +38,7 @@ class TransportLayerHandler private constructor() {
 
     // encoder 名字
     private var encoderName: String? = null
+
     // decoder 名字
     private var decoderName: String? = null
 
@@ -109,6 +110,11 @@ class TransportLayerHandler private constructor() {
 
 
         try {
+            // 路由到业务处理
+            val requestHandler = NetworkEngineContext.instance.getSingletonNotNull(
+                PacketRequestHandlerApi::class.java
+            )
+
             // 返回内容一定是完整的包
             val onePacketByteArray = sessionApi.readOneNetworkPacket(reqBytes)
                 ?: return
@@ -116,18 +122,14 @@ class TransportLayerHandler private constructor() {
             // 解码出请求的消息
             val reqMessage = messageDecoder!!.decode(onePacketByteArray)
             if (reqMessage == null) {
-                LOGGER.error(
-                    "解析 body -> message context 失败. body string utf8 = {}",
-                    String(onePacketByteArray)
-                )
+                LOGGER.debug("byte[] decode to obj fail. body string utf8 = {}", String(onePacketByteArray))
+
+                requestHandler.handleRequestByByteArray(onePacketByteArray)
                 return
             }
 
-            // 路由到业务处理
-            val router = NetworkEngineContext.instance.getSingletonNotNull(
-                PacketRequestHandlerApi::class.java
-            )
-            router.handleRequest(sessionApi, reqMessage)
+
+            requestHandler.handleRequestAfterDecode(sessionApi, reqMessage)
         } catch (e: Throwable) {
             LOGGER.error("数据分包->解析->执行. 报错了", e)
         } finally {

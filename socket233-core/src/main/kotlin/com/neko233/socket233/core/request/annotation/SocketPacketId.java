@@ -1,4 +1,4 @@
-package com.neko233.socket233.core.engine.request.annotation;
+package com.neko233.socket233.core.request.annotation;
 
 import java.lang.annotation.*;
 

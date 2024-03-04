@@ -1,6 +1,6 @@
 package com.neko233.socket233.core.codec.decoder;
 
-import com.neko233.socket233.core.engine.request.dto.RequestMessage;
+import com.neko233.socket233.core.request.dto.RequestMessage;
 
 /**
  * 网络包解码器
